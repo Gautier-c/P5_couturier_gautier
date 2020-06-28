@@ -1,58 +1,127 @@
-body {
+/* PAGE INDEX */
+body
+{
   background-color: #F3E9F1;
   margin: 0;
   text-align: center;
- }
-h1, h3{
+}
+#logo
+{
+  width: 40vw;
+  height: auto;
+}
+main
+{
+ align-items: center;
+ display:flex;
+ flex-direction: column;
+}
+h1
+{
   font-family: 'Merienda', cursive;
- }
-
-p {
-  font-family: 'Lato', sans-serif;
-  margin-bottom: 100px;
- }
-img {
-  height: 200px;
-  width: 300px;
-  border-bottom: solid cadetblue 1px;
-  margin: auto;
- }
+}
 section
 {
-  display: flex ;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  border:solid #CF7E4A;
 }
-article
+#all-teddies, #all-cameras, #all-furniture
 {
-  margin: auto;
-  box-shadow: 0 0 1em grey;
-  margin-bottom: 5%;
-  background-color: blanchedalmond;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10vh;
+  width: 90vw;
+  height: 35vh;
 }
-button
+section h1
 {
-  margin-bottom: 5%;
+  width : 10%;
 }
 #item
 {
+  width : 12vw;
+  height: auto;
+  box-shadow: 0 0 1em grey;
+  margin-left: 5vw;
+}
+.productImg
+{
+  width: 100%;
+  height: 50%;
+}
+p, h3
+{
+  font-family: 'Lato', sans-serif;
+}
+
+.btn
+{
+  background-color:#261624;
+  color: white;
+}
+.btn:hover
+{
+  background-color: #CF7E4A;
+  color:#261624;
+}
+
+
+/* PAGE PRODUIT */
+
+#product
+{
+  width:60vw;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  margin-bottom: 10vh;
+}
+#productItem
+{
+  max-width:100%;
+  max-height: 100%;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+#itemImg
+{
+  max-width:65%;
+  height: auto;
+  max-height: 75%;
+}
+
+/* PAGE PANIER */
+#recap
+{
+  display: flex;
+  justify-content: center;
+  width: 75vw;
+  height: auto;
+  padding: 5vh;
+}
+
+.cartImg
+{
+  width : 75px;
+  height: auto;
+}
+#itemCase
+{
+  width : 20%;
+  height: auto;
+  border : solid #261624;
+  margin-right: 5vw;
+}
+#total
+{
   display: flex;
   flex-direction: column;
-  width: 25%;
+  align-items: center;
   justify-content: center;
-  text-align: center;
 }
-select
+#form
 {
-  width: 30%;
-  margin: auto;
-  font-family: 'Merienda', cursive;
-  margin-bottom: 5%;
+  margin-top: 5vh;
+  padding: 5vh;
+  margin-bottom: 5vh;
 }
-button
-{
-  font-family: 'Merienda', cursive;
-  background-color: coral;
-}
-
-

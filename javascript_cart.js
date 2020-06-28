@@ -12,12 +12,16 @@ basket.forEach(function(item, index){
     itemName.textContent = basket[index].name;
     pdtContainer.appendChild(itemName); 
 
-    //affichage couleur
-    function checkSpecification(){
-        const color = basket[index].couleur;
-        const lense = basket[index].lenses;
-        const furniture = basket[index].varnish;
+    //afichage img
+    const img = document.createElement('img');
+    img.src = basket[index].img;
+    img.setAttribute('class', 'cartImg');
+    pdtContainer.appendChild(img);
 
+    //affichage couleur
+    const color = basket[index].couleur;
+    const lense = basket[index].lenses;
+    const furniture = basket[index].varnish;
         if (color){
             const itemColor = document.createElement('p');
             itemColor.textContent = basket[index].couleur;
@@ -33,10 +37,7 @@ basket.forEach(function(item, index){
             itemVarnish.textContent = basket[index].varnish;
             pdtContainer.appendChild(itemVarnish);
         }
-    }
-    checkSpecification();
     
-
     //affichage prix
     const itemPrice = document.createElement('p');
     itemPrice.textContent = basket[index].price + " €";
@@ -57,7 +58,7 @@ basket.forEach(function(item, index){
         localStorage.setItem('panier', JSON.stringify(item));
         window.location.reload();       
     })
-});
+})
 
 //calcul total
 let total = 0;
@@ -68,6 +69,7 @@ for(let i in basket)
 //affichage total
 const section = document.getElementById('recap');
 const pdtContainer = document.createElement('article');
+pdtContainer.id = "total";
 section.appendChild(pdtContainer);
 const totalBasket = document.createElement('h3');
 totalBasket.textContent = "Votre total : " + total + " €";
@@ -89,9 +91,46 @@ deleteAll.addEventListener('click', e =>{
 //FORMULAIRE
 //FORMULAIRE
 
-function Verification() {
+let bouton = document.getElementById('boutonEnvoi');
+bouton.addEventListener('click',(event) => {
+    event.preventDefault();
+    const contact = {
+        lastName : document.getElementById('idNom').value,
+        firstName : document.getElementById('idPrenom').value,
+        address : document.getElementById('idAdresse').value,
+        city : document.getElementById('idVille').value,
+        email : document.getElementById('idEmail').value
+    }
+    const products = []
+    for (let i in basket)
+    {
+        products.push(basket[i].id)
+    }  
+    const commande = {
+        contact,
+        products
+    }
+    const options = {
+        method : 'POST',
+        body : JSON.stringify(commande),
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    }
 
-    // Contrôle sur le nom
+    fetch ("http://localhost:3000/api/teddies/order", options)
+    .then(function(response){
+    return response.json()
+    })
+    .then(function(response){
+        console.log(JSON.stringify(response));
+        let orderResponse = JSON.stringify(response);
+        console.log(response.contact);
+        localStorage.setItem('contact', JSON.stringify(response.contact));
+        console.log(response.orderId);
+        localStorage.setItem('orderId', JSON.stringify(response.orderId));
+
+        // Contrôle sur le nom
     let Nom = document.getElementById('idNom').value;
     let nameFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
     let testNameFormat = nameFormat.test(Nom);
@@ -164,63 +203,11 @@ function Verification() {
         document.getElementById('idEmail').style.backgroundColor="#9C6";
     }
 
-
-    //RECUPERATION DONNEES FORMULAIRE
-    const contact = {
-        lastName : document.getElementById('idNom').value,
-        firstName : document.getElementById('idPrenom').value,
-        address : document.getElementById('idAdresse').value,
-        city : document.getElementById('idVille').value,
-        email : document.getElementById('idEmail').value
-    };
-    let infosJson = JSON.stringify(contact);
-    localStorage.setItem('contact', infosJson);
-
     //RECUPERER TOTAL COMMANDE
     let totalJson = JSON.stringify(total);
     localStorage.setItem('total', totalJson);
 
-    //ENVOYER COMMANDE AU SERVEUR
+    let openPage = window.open("confirmation.html");
 
-
-    //OUVRIR PAGE CONFIRMATION SI FORMULAIRE OK
-    // let openPage = window.open("confirmation.html");
-    
-}
-
-
-let bouton = document.getElementById('boutonEnvoi');
-bouton.addEventListener('click',(event) => {
-    event.preventDefault();
-
-    const contact = {
-        firstName: 'Dupont',
-        lastName : 'jean',
-        address : 'rue une',
-        city : 'lyon',
-        email : 'email@test.com',
-      }
-      const products = [
-        "5be9c8541c9d440000665243",
-      ]
-      const commande = {
-        contact,
-        products
-      }
-      console.log(commande);
-        const options = {
-            method : 'POST',
-            body : JSON.stringify(commande),
-            headers : {
-                'Content-Type' : 'application/json'
-            }
-    
-        }
-        fetch ("http://localhost:3000/api/teddies/order", options)
-        .then(function(response){
-            response.json()
-        })
-        .then(function(response){
-            console.log();
-        })
-    })
+    })  
+})

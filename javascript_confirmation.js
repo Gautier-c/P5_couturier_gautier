@@ -1,6 +1,7 @@
 let infos = JSON.parse(window.localStorage.getItem('contact'));
 let total = JSON.parse(window.localStorage.getItem('total'));
 let cart = JSON.parse(window.localStorage.getItem('panier'));
+let orderId = JSON.parse(window.localStorage.getItem('orderId'));
 
 function confirmation (info, index){
     const section = document.getElementById('infoRecap');
@@ -9,7 +10,9 @@ function confirmation (info, index){
     section.appendChild(pdtContainer);
 
     //affichage du N° commande
-    
+    const orderNumber = document.createElement('p');
+    orderNumber.textContent = "Commande N° : " + orderId ;
+    pdtContainer.appendChild(orderNumber);
 
     //affichage du total de la commande
     const cartTotal = document.createElement('p');
@@ -31,3 +34,27 @@ function confirmation (info, index){
 
 }
 confirmation();
+
+    // const inputs = documents.querySelectorAll('input');
+
+    // inputs.forEach( input =>{
+        
+    //   checkInput( input, '....')
+      
+    // })
+    
+    
+    // fucntion checkInput( input, format){
+    //   let reg = new RegExp(format);
+      
+    //   let inputFormat = reg.test(input);
+    //     if(inputFormat === false){
+    //         alert('Vous devez compléter ce champ');
+    //         input.style.backgroundColor="red";
+    //         input.style.color="#FFF";
+    //         return false;
+    //     }
+    //     else
+    //     {
+    //         input.style.backgroundColor="#9C6";
+    //     }
