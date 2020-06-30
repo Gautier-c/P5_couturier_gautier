@@ -23,6 +23,7 @@ for (let i in articles){
       pdtContainer.appendChild(img);
 
       //affichage name
+      // displayItem(name, h3);
       const name = document.createElement('h3');
       name.textContent = item.name;
       pdtContainer.appendChild(name);

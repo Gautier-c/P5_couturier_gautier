@@ -22,20 +22,15 @@ basket.forEach(function(item, index){
     const color = basket[index].couleur;
     const lense = basket[index].lenses;
     const furniture = basket[index].varnish;
+   
         if (color){
-            const itemColor = document.createElement('p');
-            itemColor.textContent = basket[index].couleur;
-            pdtContainer.appendChild(itemColor);
+            displayOptions(color,pdtContainer);
         }
         else if (lense){
-            const itemLenses = document.createElement('p');
-            itemLenses.textContent = basket[index].lenses;
-            pdtContainer.appendChild(itemLenses);
+            displayOptions(lense,pdtContainer);
         }
         else if (furniture){
-            const itemVarnish = document.createElement('p');
-            itemVarnish.textContent = basket[index].varnish;
-            pdtContainer.appendChild(itemVarnish);
+            displayOptions(furniture,pdtContainer);
         }
     
     //affichage prix
@@ -87,10 +82,8 @@ deleteAll.addEventListener('click', e =>{
     window.location.reload();       
 })
 
-
 //FORMULAIRE
 //FORMULAIRE
-
 let bouton = document.getElementById('boutonEnvoi');
 bouton.addEventListener('click',(event) => {
     event.preventDefault();
@@ -123,91 +116,58 @@ bouton.addEventListener('click',(event) => {
     return response.json()
     })
     .then(function(response){
-        console.log(JSON.stringify(response));
         let orderResponse = JSON.stringify(response);
-        console.log(response.contact);
         localStorage.setItem('contact', JSON.stringify(response.contact));
-        console.log(response.orderId);
         localStorage.setItem('orderId', JSON.stringify(response.orderId));
 
         // Contrôle sur le nom
-    let Nom = document.getElementById('idNom').value;
-    let nameFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
-    let testNameFormat = nameFormat.test(Nom);
-    if(testNameFormat === false){
-        alert('Vous devez compléter votre nom !');
-        document.getElementById('idNom').style.backgroundColor="red";
-        document.getElementById('idNom').style.color="#FFF";
-        return false;
-    }
-    else
-    {
-        document.getElementById('idNom').style.backgroundColor="#9C6";
-    }
+        let Nom = document.getElementById('idNom').value;
+        let nomId = document.getElementById('idNom');
+        let nameFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
+        let testNameFormat = nameFormat.test(Nom);
+        checkFormat(testNameFormat,nomId);
+    
+        // // Contrôle sur le prenom
+        let Prenom = document.getElementById('idPrenom').value;
+        let prenomId = document.getElementById('idPrenom');
+        let prenomFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
+        let testPrenomFormat = prenomFormat.test(Prenom);
+        checkFormat(testPrenomFormat, prenomId);
 
-    // Contrôle sur le prenom
-    let Prenom = document.getElementById('idPrenom').value;
-    let testPrenomFormat = nameFormat.test(Prenom);
-    if(testPrenomFormat === false){
-        alert('Vous devez compléter votre Prenom !');
-        document.getElementById('idPrenom').style.backgroundColor="red";
-        document.getElementById('idPrenom').style.color="#FFF";
-        return false;
-    }
-    else
-    {
-        document.getElementById('idPrenom').style.backgroundColor="#9C6";
-    }
+        // //Contrôle sur l'adresse
+        let Adresse = document.getElementById('idAdresse').value;
+        let adresseId = document.getElementById('idAdresse');
+        let adresseFormat = new RegExp(/^[a-zA-Z0-9 ,.'-]+$/);
+        let testAdresseFormat = adresseFormat.test(Adresse);
+        checkFormat(testAdresseFormat, adresseId);
 
-    //Contrôle sur l'adresse
-    let Adresse = document.getElementById('idAdresse').value;
-    let adresseFormat = new RegExp(/^[a-zA-Z0-9 ,.'-]+$/);
-    let testAdresseFormat = adresseFormat.test(Adresse);
-    if(testAdresseFormat === false){
-        alert('Vous devez compléter votre adresse !');
-        document.getElementById('idAdresse').style.backgroundColor="red";
-        document.getElementById('idAdresse').style.color="#FFF";
-        return false;
-    }
-    else
-    {
-        document.getElementById('idAdresse').style.backgroundColor="#9C6";
-    }
+        // //Contrôle sur la ville
+        let Ville = document.getElementById('idVille').value;
+        let villeId = document.getElementById('idVille');
+        let villeFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
+        let testVilleFormat = villeFormat.test(Ville);
+        checkFormat(testVilleFormat, villeId);
 
-    //Contrôle sur la ville
-    let Ville = document.getElementById('idVille').value;
-    let testVilleFormat = nameFormat.test(Ville);
-    if(testVilleFormat === false){
-        alert('Vous devez compléter votre Ville!');
-        document.getElementById('idVille').style.backgroundColor="red";
-        document.getElementById('idVille').style.color="#FFF";
-        return false;
-    }
-    else
-    {
-        document.getElementById('idVille').style.backgroundColor="#9C6";
-    }
+        // // Contrôle sur l'email
+        let Email = document.getElementById('idEmail').value;
+        let emailId = document.getElementById('idEmail');
+        let mailFormat = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        let testEmailFormat = mailFormat.test(Email);
+        checkFormat(testEmailFormat, emailId);
+    
+        //RECUPERER TOTAL COMMANDE
+        let totalJson = JSON.stringify(total);
+        localStorage.setItem('total', totalJson);
 
-    // Contrôle sur l'email
-    let Email = document.getElementById('idEmail').value;
-    let mailFormat = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    let testFormat = mailFormat.test(Email);
-
-    if(testFormat === false) {
-        alert('Vous devez compléter votre adresse email correctement');
-        document.getElementById('idEmail').style.backgroundColor="red";
-        document.getElementById('idEmail').style.color="#FFF";
-        return false;
-    }
-    else{
-        document.getElementById('idEmail').style.backgroundColor="#9C6";
-    }
-
-    //RECUPERER TOTAL COMMANDE
-    let totalJson = JSON.stringify(total);
-    localStorage.setItem('total', totalJson);
-
-    let openPage = window.open("confirmation.html");
-
+        //OUVERTURE PAGE CONFIRMATION
+        let infos = JSON.parse(window.localStorage.getItem('orderId'));
+        let cart = JSON.parse(window.localStorage.getItem('panier'));
+        
+        if(infos != null && cart != null){
+        let openPage = window.open("confirmation.html");
+        }
+        
+       
+    
     })  
 })

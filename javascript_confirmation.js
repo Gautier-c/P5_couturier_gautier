@@ -34,27 +34,3 @@ function confirmation (info, index){
 
 }
 confirmation();
-
-    // const inputs = documents.querySelectorAll('input');
-
-    // inputs.forEach( input =>{
-        
-    //   checkInput( input, '....')
-      
-    // })
-    
-    
-    // fucntion checkInput( input, format){
-    //   let reg = new RegExp(format);
-      
-    //   let inputFormat = reg.test(input);
-    //     if(inputFormat === false){
-    //         alert('Vous devez compléter ce champ');
-    //         input.style.backgroundColor="red";
-    //         input.style.color="#FFF";
-    //         return false;
-    //     }
-    //     else
-    //     {
-    //         input.style.backgroundColor="#9C6";
-    //     }
