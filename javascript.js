@@ -1,12 +1,9 @@
 let articles = ['teddies', 'cameras', 'furniture'];
-
 for (let i in articles){
-
   fetch("http://localhost:3000/api/" + articles[i])
     .then(function(response){
       return response.json();
     })
-
     .then(function (items){
       for (let item of items){
 
@@ -23,7 +20,6 @@ for (let i in articles){
       pdtContainer.appendChild(img);
 
       //affichage name
-      // displayItem(name, h3);
       const name = document.createElement('h3');
       name.textContent = item.name;
       pdtContainer.appendChild(name);
@@ -32,7 +28,6 @@ for (let i in articles){
       const price = document.createElement('p');
       price.textContent = item.price/100 +" €";
       pdtContainer.appendChild(price);
-
 
       //affichage bouton
       const btn = document.createElement("button");

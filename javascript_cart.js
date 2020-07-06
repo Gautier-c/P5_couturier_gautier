@@ -1,5 +1,9 @@
 let basket = JSON.parse(window.localStorage.getItem('panier'));
 
+if(basket == null) {
+    document.getElementById('emptyCart').innerHTML="Votre panier est vide !";
+}
+
 //Affichage des produits dans le panier
 basket.forEach(function(item, index){
     const section = document.getElementById('recap');
@@ -123,28 +127,28 @@ bouton.addEventListener('click',(event) => {
         // Contrôle sur le nom
         let Nom = document.getElementById('idNom').value;
         let nomId = document.getElementById('idNom');
-        let nameFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
+        let nameFormat = new RegExp(/^[a-zA-ZÀ-ÿ]+$/);
         let testNameFormat = nameFormat.test(Nom);
         checkFormat(testNameFormat,nomId);
     
         // // Contrôle sur le prenom
         let Prenom = document.getElementById('idPrenom').value;
         let prenomId = document.getElementById('idPrenom');
-        let prenomFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
+        let prenomFormat = new RegExp(/^[a-zA-ZÀ-ÿ]+$/);
         let testPrenomFormat = prenomFormat.test(Prenom);
         checkFormat(testPrenomFormat, prenomId);
 
         // //Contrôle sur l'adresse
         let Adresse = document.getElementById('idAdresse').value;
         let adresseId = document.getElementById('idAdresse');
-        let adresseFormat = new RegExp(/^[a-zA-Z0-9 ,.'-]+$/);
+        let adresseFormat = new RegExp(/^[a-zA-ZÀ-ÿ0-9 ,.'-]+$/);
         let testAdresseFormat = adresseFormat.test(Adresse);
         checkFormat(testAdresseFormat, adresseId);
 
         // //Contrôle sur la ville
         let Ville = document.getElementById('idVille').value;
         let villeId = document.getElementById('idVille');
-        let villeFormat = new RegExp(/^[a-zA-Z ,.'-]+$/);
+        let villeFormat = new RegExp(/^[a-zA-ZÀ-ÿ ,.'-]+$/);
         let testVilleFormat = villeFormat.test(Ville);
         checkFormat(testVilleFormat, villeId);
 
@@ -163,11 +167,9 @@ bouton.addEventListener('click',(event) => {
         let infos = JSON.parse(window.localStorage.getItem('orderId'));
         let cart = JSON.parse(window.localStorage.getItem('panier'));
         
-        if(infos != null && cart != null){
+        if(infos != null && cart != null && testEmailFormat === true && testVilleFormat === true &&
+            testAdresseFormat === true && testPrenomFormat === true && testNameFormat === true){
         let openPage = window.open("confirmation.html");
-        }
-        
-       
-    
+        }   
     })  
 })

@@ -9,19 +9,22 @@
         <meta name="Description" content="Orinoco, commerce en ligne de produits spécifique">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merienda&display=swap" rel="stylesheet">
-
-        
     </head>
     <body>
         <header>
             <a href="index.html"><img id="logo" src="images/orinoco.png" alt="Logo Orinoco"></a>
+            <nav id="navbar">
+                <a href="index.html">Accueil</a>
+                <a href="shoppingcart.html">Panier</a>
+            </nav>
         </header>
         <main>
             <h2>Récapitulatif de votre panier</h2>
             <section id="recap">
-
+                <span id="emptyCart"></span>
             </section>
             <section id="form">
+                <h3>Formulaire à remplir pour passer votre commande</h3>
                 <form method="post">
                     <label for="idNom">Nom <span class="text-danger">*</span></label>
                     <input type="text" name="nom" id="idNom">
@@ -45,7 +48,6 @@
                     
                     <input type="submit" value='Commander' id="boutonEnvoi">
                     <br><span id="error"></span><br>
-
                 </form>
             </section>
         </main>
