@@ -42,20 +42,26 @@ function Display(){
         const selection = document.createElement('select');
         selection.id = "mySelect";
         pdtContainer.appendChild(selection);
-
         const teddyOptions = product.colors;
         const cameraOptions = product.lenses;
         const furnitureOptions = product.varnish;
-
-            if (teddyOptions){
-                selectOptions(teddyOptions,selection); 
-            }   
-            else if (cameraOptions){
-                selectOptions(cameraOptions,selection);
-            }    
-            else if (furnitureOptions){
-                selectOptions(furnitureOptions,selection);
+        function selectOptions(options, selection){
+            for (let option of options){
+                let optionElt = document.createElement("option")
+                optionElt.setAttribute("value", option);
+                optionElt.text = option;
+                selection.appendChild(optionElt)
             }
+        }
+        if (teddyOptions){
+            selectOptions(teddyOptions,selection); 
+        }   
+        else if (cameraOptions){
+            selectOptions(cameraOptions,selection);
+        }    
+        else if (furnitureOptions){
+            selectOptions(furnitureOptions,selection);
+        }
 
         //affichage bouton "ajouter au panier"
         const btn = document.createElement("button");
@@ -67,6 +73,32 @@ function Display(){
          //au clic du bouton "ajouter au panier"
          btn.addEventListener('click', e =>{
             e.preventDefault();
+            function alreadyCart (specifications,cartItems,product){
+                let cartObject = {
+                    name : product.name,
+                    price : product.price/100,
+                    id : id,
+                    couleur : specifications[0],
+                    img : product.imageUrl,
+                }
+                cartItems.push(cartObject);
+                localStorage.setItem('panier', JSON.stringify(cartItems));
+                alert('Produit ajouté au panier');
+            }
+            function createCart (specification, product){
+                let newBasket = new Array();
+                const newobject = {
+                    name : product.name,
+                    price : product.price/100,
+                    id : id,
+                    couleur : specification[0],
+                    img : product.imageUrl,
+                }
+                newBasket.push(newobject);
+                localStorage.setItem('panier',JSON.stringify(newBasket));
+                alert('Produit ajouté au panier');
+            }
+            //Il y a deja un item dans le panier
             if (localStorage.getItem('panier')){
                 let cartItems = (localStorage.getItem('panier'));
                 cartItems = JSON.parse(cartItems);
@@ -82,6 +114,19 @@ function Display(){
             }
             //IL n'y a rien dans le panier
             else{
+                function createCart (specification, product){
+                    let newBasket = new Array();
+                    const newobject = {
+                        name : product.name,
+                        price : product.price/100,
+                        id : id,
+                        couleur : specification[0],
+                        img : product.imageUrl,
+                    }
+                    newBasket.push(newobject);
+                    localStorage.setItem('panier',JSON.stringify(newBasket));
+                    alert('Produit ajouté au panier');
+                }
                 if(teddyOptions){
                     createCart(teddyOptions, product);
                 }

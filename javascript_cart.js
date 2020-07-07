@@ -23,19 +23,23 @@ basket.forEach(function(item, index){
     pdtContainer.appendChild(img);
 
     //affichage couleur
+    function displayOptions(option,pdtContainer){
+        let itemOptions = document.createElement('p');
+        itemOptions.textContent = option;
+        pdtContainer.appendChild(itemOptions);
+    }
     const color = basket[index].couleur;
     const lense = basket[index].lenses;
     const furniture = basket[index].varnish;
-   
-        if (color){
-            displayOptions(color,pdtContainer);
-        }
-        else if (lense){
-            displayOptions(lense,pdtContainer);
-        }
-        else if (furniture){
-            displayOptions(furniture,pdtContainer);
-        }
+    if (color){
+         displayOptions(color,pdtContainer);
+    }
+    else if (lense){
+        displayOptions(lense,pdtContainer);
+    }
+    else if (furniture){
+        displayOptions(furniture,pdtContainer);
+    }
     
     //affichage prix
     const itemPrice = document.createElement('p');
@@ -46,7 +50,6 @@ basket.forEach(function(item, index){
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Supprimer";
     pdtContainer.appendChild(deleteBtn);
-
     deleteBtn.addEventListener('click', e =>{
         e.preventDefault();
         //suppression affichage du produit
@@ -74,11 +77,10 @@ const totalBasket = document.createElement('h3');
 totalBasket.textContent = "Votre total : " + total + " €";
 pdtContainer.appendChild(totalBasket);
 
-//Bouton supprimer le panier
+//Bouton vider le panier
 const deleteAll = document.createElement("button");
 deleteAll.textContent = "Vider le panier";
 pdtContainer.appendChild(deleteAll);
-
 deleteAll.addEventListener('click', e =>{
     e.preventDefault();
     //suppression affichage du produit
@@ -124,6 +126,21 @@ bouton.addEventListener('click',(event) => {
         localStorage.setItem('contact', JSON.stringify(response.contact));
         localStorage.setItem('orderId', JSON.stringify(response.orderId));
 
+        //Fonction test du format
+        function checkFormat(testFormat, idInfo){
+            console.log(testFormat + " element : " + idInfo)
+            if(testFormat === false){
+                    document.getElementById('error').innerHTML="Les cases en rouge sont à completer obligatoirement !";
+                    idInfo.style.backgroundColor="red";
+                    idInfo.style.color="#FFF";
+                    return false;
+                }
+                else
+                {
+                    idInfo.style.backgroundColor="#9C6";
+                    return true;
+                }
+        }
         // Contrôle sur le nom
         let Nom = document.getElementById('idNom').value;
         let nomId = document.getElementById('idNom');
@@ -141,24 +158,24 @@ bouton.addEventListener('click',(event) => {
         // //Contrôle sur l'adresse
         let Adresse = document.getElementById('idAdresse').value;
         let adresseId = document.getElementById('idAdresse');
-        let adresseFormat = new RegExp(/^[a-zA-ZÀ-ÿ0-9 ,.'-]+$/);
+        let adresseFormat = new RegExp(/^([0-9]* )?([a-zA-Z]{2,})+ | [a-zA-Z]{2,}$/);
         let testAdresseFormat = adresseFormat.test(Adresse);
         checkFormat(testAdresseFormat, adresseId);
 
         // //Contrôle sur la ville
         let Ville = document.getElementById('idVille').value;
         let villeId = document.getElementById('idVille');
-        let villeFormat = new RegExp(/^[a-zA-ZÀ-ÿ ,.'-]+$/);
+        let villeFormat = new RegExp(/^[a-zA-Z\s,.'-]+$/);
         let testVilleFormat = villeFormat.test(Ville);
         checkFormat(testVilleFormat, villeId);
 
         // // Contrôle sur l'email
         let Email = document.getElementById('idEmail').value;
         let emailId = document.getElementById('idEmail');
-        let mailFormat = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+        let mailFormat = new RegExp(/^[a-zA-Z0-9_.-]+@[a-z0-9._]{2,}\.[a-z]{2,}$/);
         let testEmailFormat = mailFormat.test(Email);
         checkFormat(testEmailFormat, emailId);
-    
+
         //RECUPERER TOTAL COMMANDE
         let totalJson = JSON.stringify(total);
         localStorage.setItem('total', totalJson);
@@ -171,5 +188,5 @@ bouton.addEventListener('click',(event) => {
             testAdresseFormat === true && testPrenomFormat === true && testNameFormat === true){
         let openPage = window.open("confirmation.html");
         }   
-    })  
+    })
 })
