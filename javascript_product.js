@@ -114,19 +114,6 @@ function Display(){
             }
             //IL n'y a rien dans le panier
             else{
-                function createCart (specification, product){
-                    let newBasket = new Array();
-                    const newobject = {
-                        name : product.name,
-                        price : product.price/100,
-                        id : id,
-                        couleur : specification[0],
-                        img : product.imageUrl,
-                    }
-                    newBasket.push(newobject);
-                    localStorage.setItem('panier',JSON.stringify(newBasket));
-                    alert('Produit ajouté au panier');
-                }
                 if(teddyOptions){
                     createCart(teddyOptions, product);
                 }
