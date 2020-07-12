@@ -22,7 +22,7 @@ basket.forEach(function(item, index){
     img.setAttribute('class', 'cartImg');
     pdtContainer.appendChild(img);
 
-    //affichage couleur
+    //affichage options
     function displayOptions(option,pdtContainer){
         let itemOptions = document.createElement('p');
         itemOptions.textContent = option;
@@ -128,7 +128,6 @@ bouton.addEventListener('click',(event) => {
 
         //Fonction test du format
         function checkFormat(testFormat, idInfo){
-            console.log(testFormat + " element : " + idInfo)
             if(testFormat === false){
                     document.getElementById('error').innerHTML="Les cases en rouge sont à completer obligatoirement !";
                     idInfo.style.backgroundColor="red";
@@ -151,7 +150,7 @@ bouton.addEventListener('click',(event) => {
         // // Contrôle sur le prenom
         let Prenom = document.getElementById('idPrenom').value;
         let prenomId = document.getElementById('idPrenom');
-        let prenomFormat = new RegExp(/^[a-zA-ZÀ-ÿ]+$/);
+        let prenomFormat = new RegExp(/^[a-zA-ZÀ-ÿ\s-]+$/);
         let testPrenomFormat = prenomFormat.test(Prenom);
         checkFormat(testPrenomFormat, prenomId);
 

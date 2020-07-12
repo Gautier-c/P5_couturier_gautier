@@ -31,6 +31,5 @@ function confirmation (info, index){
     const addressConfirm = document.createElement('p');
     addressConfirm.textContent = "Votre commande sera livré a l'adresse suivante : " + infos.address +" "+ infos.city;
     pdtContainer.appendChild(addressConfirm);
-
 }
 confirmation();
